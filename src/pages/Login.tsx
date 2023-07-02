@@ -12,12 +12,18 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { LoggedInContext, LoggedInContextType } from "../App";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 type UserType = {
   password?: string;
   email?: string;
 };
+
 const Login = () => {
+  const navigate = useNavigate();
+  const { loggedIn, updateLoginValue }: LoggedInContextType =
+    useContext(LoggedInContext);
   const [user, setUser] = useState<null | UserType>(null);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -25,6 +31,8 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(user);
+    !loggedIn && user && updateLoginValue("form");
+    loggedIn && navigate("/");
   };
   return (
     <Flex

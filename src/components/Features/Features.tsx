@@ -1,15 +1,5 @@
 import { ReactElement } from "react";
-import {
-  Box,
-  SimpleGrid,
-  Icon,
-  Text,
-  Stack,
-  Flex,
-  Image,
-} from "@chakra-ui/react";
-import { FcAssistant, FcDonate, FcInTransit } from "react-icons/fc";
-import { FaChalkboardTeacher } from "react-icons/fa";
+import { Box, SimpleGrid, Text, Stack, Flex, Image } from "@chakra-ui/react";
 
 type FeatureProps = {
   title: string;

@@ -9,11 +9,17 @@ import {
   MenuDivider,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const User: React.FC = () => {
+  const navigate = useNavigate();
   const [isLogged, setIsLogged] = useState(false);
   const handleLogin = () => {
-    setIsLogged(!isLogged);
+    if (isLogged) {
+      setIsLogged(!isLogged);
+    } else {
+      navigate("/login");
+    }
   };
   return (
     <Flex alignItems={"center"}>

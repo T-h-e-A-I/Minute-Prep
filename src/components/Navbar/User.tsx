@@ -8,16 +8,24 @@ import {
   MenuItem,
   MenuDivider,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { LoggedInContext, LoggedInContextType } from "../../App";
 
 const User: React.FC = () => {
-  const [isLogged, setIsLogged] = useState(false);
+  const navigate = useNavigate();
+  const { loggedIn, updateLoginValue }: LoggedInContextType =
+    useContext(LoggedInContext);
   const handleLogin = () => {
-    setIsLogged(!isLogged);
+    if (loggedIn) {
+      updateLoginValue("logout");
+    } else {
+      navigate("/login");
+    }
   };
   return (
     <Flex alignItems={"center"}>
-      {isLogged ? (
+      {loggedIn ? (
         <Menu>
           <MenuButton
             as={Button}

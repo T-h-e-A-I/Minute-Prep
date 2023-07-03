@@ -30,7 +30,7 @@ const Feature = ({ title, text, icon }: FeatureProps) => {
 
 const FeatureStack = () => {
   return (
-    <Box p={4}>
+    <Box p={4} backgroundImage="linear-gradient(45deg, #afddfc, #6fdcff)">
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
         <Feature
           icon={<Image src="./images/reels.png" w={10} h={10} />}

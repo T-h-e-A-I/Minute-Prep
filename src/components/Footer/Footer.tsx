@@ -7,13 +7,13 @@ import {
   Image,
   Flex,
 } from "@chakra-ui/react";
-import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 import { SocialButton } from "./SocialButton";
 
 const Footer = () => {
   return (
     <Box
-      bg={useColorModeValue("gray.50", "gray.900")}
+      backgroundImage="linear-gradient(45deg, #b2ecff,#d3edff)"
       color={useColorModeValue("gray.700", "gray.200")}
     >
       <Container

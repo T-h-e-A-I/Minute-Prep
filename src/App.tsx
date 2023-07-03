@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Teachers from "./pages/Teachers";
-import Playlists from "./pages/Playlists";
+import Contents from "./pages/Contents";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login";
@@ -34,8 +33,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/teachers" element={<Teachers />} />
-          <Route path="/playlists" element={<Playlists />} />
+          <Route path="/contents" element={<Contents />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" />
         </Routes>

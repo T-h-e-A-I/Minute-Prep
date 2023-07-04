@@ -9,7 +9,7 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { BsArrowUpRight } from "react-icons/bs";
-import { SubjectType } from "../../assets/database";
+import { SubjectType } from "../../assets/types";
 
 const Subject = ({ name, image, description }: SubjectType) => {
   return (

@@ -15,7 +15,6 @@ export const TeacherCard = ({
   department,
   nickName,
 }: TeacherCardProps) => {
-  console.log("TeacherCard");
   return (
     <article className="card">
       <figure>

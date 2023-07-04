@@ -11,7 +11,7 @@ import {
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import NavLink from "./Navlink";
 
-const Links = ["Home", "Playlists", "Teachers"];
+const Links = ["Home", "Contents"];
 
 const Navbar: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

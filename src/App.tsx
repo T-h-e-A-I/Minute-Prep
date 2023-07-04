@@ -35,7 +35,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/contents" element={<Contents />} />
           <Route path="/login" element={<Login />} />
-          <Route path="*" />
+          {/* <Route path="*" /> */}
         </Routes>
         <Footer />
       </LoggedInContext.Provider>

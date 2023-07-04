@@ -65,7 +65,7 @@ enum Types {
   VIDEO
   PDF
   PPT
-  REELS
+  REEL
   INFOGRAPHICS
   ANIMATIONS
   NOTES

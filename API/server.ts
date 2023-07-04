@@ -1,6 +1,13 @@
-import { getTeachers, getSubjects } from "./database";
+import {
+  getTeachers,
+  getSubjects,
+  getContents,
+  getContentsByTeacher,
+  getContentsBySubject,
+} from "./database";
 import { Request, Response } from "express";
 import cors from "cors";
+import { Types } from "@prisma/client";
 
 const port: number = 3000;
 var fs = require("fs");
@@ -40,6 +47,60 @@ app.get("/teachers", async (req: Request, res: Response) => {
 app.get("/subjects", async (req: Request, res: Response) => {
   try {
     const subjects = await getSubjects();
+    res.send(subjects);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+app.get("/contents/:type", async (req: Request, res: Response) => {
+  const type = req.params.type.toUpperCase();
+  let desiredType: Types = Types.REEL;
+  if (type == "REELS") desiredType = Types.REEL;
+  if (type == "VIDEOS") desiredType = Types.VIDEO;
+  if (type == "INFOGRAPHICS") desiredType = Types.INFOGRAPHICS;
+  try {
+    const subjects = await getContents(desiredType);
+    res.send(subjects);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+app.get("/contents/:teachers/:type", async (req: Request, res: Response) => {
+  const teacher = req.params.teachers.toUpperCase();
+  let teacherId = 1;
+  if (teacher == "MASHRAFI") teacherId = 1;
+  if (teacher == "MAISHA") teacherId = 2;
+  if (teacher == "AWESH") teacherId = 3;
+  if (teacher == "GOURAB") teacherId = 4;
+  if (teacher == "TANVIR") teacherId = 5;
+  const type = req.params.type.toUpperCase();
+  let desiredType: Types = Types.REEL;
+  if (type == "REELS") desiredType = Types.REEL;
+  if (type == "VIDEOS") desiredType = Types.VIDEO;
+  if (type == "INFOGRAPHICS") desiredType = Types.INFOGRAPHICS;
+  try {
+    const subjects = await getContentsByTeacher(desiredType, teacherId);
+    res.send(subjects);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+app.get("/contents/:subject/:type", async (req: Request, res: Response) => {
+  const desiredSubject = req.params.subjec.toUpperCase();
+  let subjectId = 1;
+  if (desiredSubject == "PHYSICS") subjectId = 1;
+  if (desiredSubject == "CHEMISTRY") subjectId = 2;
+  if (desiredSubject == "MATH") subjectId = 3;
+  const type = req.params.type.toUpperCase();
+  let desiredType: Types = Types.REEL;
+  if (type == "REELS") desiredType = Types.REEL;
+  if (type == "VIDEOS") desiredType = Types.VIDEO;
+  if (type == "INFOGRAPHICS") desiredType = Types.INFOGRAPHICS;
+  try {
+    const subjects = await getContentsBySubject(desiredType, subjectId);
     res.send(subjects);
   } catch (error) {
     console.log(error);

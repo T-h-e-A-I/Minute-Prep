@@ -222,7 +222,7 @@ export async function getContentsBySubject(
 // }
 // main();
 
-//Check Data
+// Check Data
 // async function main() {
 //   try {
 //     const teachers = await prisma.chapter.findMany();
@@ -232,3 +232,14 @@ export async function getContentsBySubject(
 //   }
 // }
 // main();
+
+//Delete Data
+async function main() {
+  try {
+    const teachers = await prisma.content.deleteMany();
+    console.log(teachers);
+  } catch (error) {
+    console.log(error);
+  }
+}
+main();

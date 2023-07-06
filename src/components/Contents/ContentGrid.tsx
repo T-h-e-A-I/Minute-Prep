@@ -1,5 +1,5 @@
 import { Wrap, WrapItem } from "@chakra-ui/react";
-import { ContentCardType } from "../../../public/database/Contents";
+import { ContentCardType } from "../../assets/types.tsx";
 import { CardProps } from "../../assets/types";
 import { ReelCard } from "./ReelCard";
 import { VideoCard } from "./VideoCard";

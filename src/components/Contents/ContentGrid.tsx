@@ -1,69 +1,80 @@
-import {
-  Box,
-  Heading,
-  Text,
-  Image,
-  Flex,
-  Wrap,
-  WrapItem,
-  Tag,
-} from "@chakra-ui/react";
+import { Wrap, WrapItem } from "@chakra-ui/react";
+import { ContentCardType } from "../../assets/types.tsx";
+import { CardProps } from "../../assets/types";
+import { ReelCard } from "./ReelCard";
+import { VideoCard } from "./VideoCard";
+import { InfographicsCard } from "./InfographicsCard";
+import { useEffect, useState } from "react";
+import url from "../../assets/config";
 
-type CardProps = {
-  title: string;
-  description: string;
-  image: string;
-  tags: string[];
-};
-
-const Card = ({ title, description, image, tags }: CardProps) => {
-  return (
-    <Box
-      maxW="sm"
-      borderWidth="1px"
-      borderRadius="md"
-      overflow="hidden"
-      shadow="md"
-      m={2}
-      p={4}
-    >
-      <Image src={image} alt={title} />
-      <Box mt={4}>
-        <Heading as="h2" size="md">
-          {title}
-        </Heading>
-        <Text mt={2}>{description}</Text>
-        <Flex mt={4}>
-          {tags.map((tag) => (
-            <Tag key={tag} size="sm" mr={2}>
-              {tag}
-            </Tag>
-          ))}
-        </Flex>
-      </Box>
-    </Box>
-  );
-};
-
-const CardGrid = () => {
-  // Placeholder data for cards
-  console.log("CardGrid");
-  const cardsData = Array.from({ length: 20 }).map((_, index) => ({
-    title: `Card ${index + 1}`,
-    description: "This is a card description.",
-    image: "https://via.placeholder.com/300",
-    tags: ["Tag 1", "Tag 2", "Tag 3"],
-  }));
+const CardGrid = ({
+  type,
+  teacherOrSubject,
+}: {
+  type: string;
+  teacherOrSubject: string | undefined;
+}) => {
+  const [cardData, setCardData] = useState<CardProps[] | null>();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let response;
+        if (teacherOrSubject) {
+          response = await fetch(
+            url + "/contents/" + teacherOrSubject + "/" + type
+          );
+          console.log(url + "/contents/" + teacherOrSubject + "/" + type);
+        } else {
+          response = await fetch(url + "/contents/" + type);
+        }
+        const contents = await response.json();
+        const cardsData = contents.map((content: ContentCardType) => ({
+          title: content.name,
+          image: content.image,
+          tags: [
+            content.type,
+            subjects[content.subjectId - 1],
+            teachers[content.teacherId - 1],
+          ],
+          url: content.url,
+        }));
+        setCardData(cardsData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
-    <Wrap justify="center" spacing={4}>
-      {cardsData.map((card, index) => (
-        <WrapItem key={index}>
-          <Card {...card} />
-        </WrapItem>
-      ))}
+    <Wrap justify="center">
+      {cardData &&
+        cardData.map((card, index) => (
+          <WrapItem key={index}>
+            {type.toUpperCase() === "REELS" ? (
+              <ReelCard {...card} />
+            ) : type.toUpperCase() === "VIDEOS" ? (
+              <VideoCard {...card} />
+            ) : (
+              <InfographicsCard {...card} />
+            )}
+          </WrapItem>
+        ))}
     </Wrap>
   );
 };
 
 export default CardGrid;
+
+enum subjects {
+  "Physics",
+  "Chemistry",
+  "Math",
+}
+enum teachers {
+  "Mashrafi",
+  "Maisha",
+  "Awesh",
+  "Gourab",
+  "Tanvir",
+}

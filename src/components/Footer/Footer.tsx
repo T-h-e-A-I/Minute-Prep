@@ -26,7 +26,7 @@ const Footer = () => {
         align={{ base: "center", md: "center" }}
       >
         <Flex align="center" justify="space-between">
-          <Image src="./images/logo.png" h="80px" />
+          <Image src="/images/logo.png" h="80px" />
           <Text fontWeight="bold"> Minute Prep</Text>
         </Flex>
         <Text>© 2023 Minute Prep. All rights reserved</Text>

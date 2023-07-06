@@ -1,11 +1,10 @@
-import { ReactElement } from "react";
-
 export type FeatureProps = {
+  id: number;
   title: string;
-  text: string;
-  icon: ReactElement;
+  image: string;
+  description: string;
 };
-export const FeatureData = [
+export const FeatureData: FeatureProps[] = [
   {
     id: 1,
     image: "images/infographics.png",

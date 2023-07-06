@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login";
 import { useState, createContext } from "react";
+import PageNotFound from "./pages/PageNotFound";
 export type LoggedInContextType = {
   loggedIn: boolean;
   updateLoginValue: (type: string) => void;
@@ -30,13 +31,20 @@ function App() {
     <>
       <LoggedInContext.Provider value={{ loggedIn, updateLoginValue }}>
         <Navbar />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/contents" element={<Contents />} />
+          <Route path="/contents/:contentType" element={<Contents />} />
+          <Route
+            path="contents/:teacherOrSubject/:contentType"
+            element={<Contents />}
+          />
           <Route path="/login" element={<Login />} />
-          <Route path="*" />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
+
         <Footer />
       </LoggedInContext.Provider>
     </>

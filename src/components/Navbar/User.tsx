@@ -9,6 +9,7 @@ import {
   MenuDivider,
 } from "@chakra-ui/react";
 import { useContext } from "react";
+import { SettingsIcon, BellIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { LoggedInContext, LoggedInContextType } from "../../App";
 
@@ -41,12 +42,19 @@ const User: React.FC = () => {
               }
             />
           </MenuButton>
-          <MenuList>
-            <MenuItem>Link 1</MenuItem>
-            <MenuItem>Link 2</MenuItem>
-            <MenuDivider />
+          <MenuList pb={0}>
+            <MenuItem>
+              <BellIcon padding="1px" />
+              Notifications
+            </MenuItem>
+            <MenuItem>
+              <SettingsIcon padding="1px" />
+              Settings
+            </MenuItem>
+            <MenuDivider></MenuDivider>
             <Button
               width="100%"
+              mb={0}
               background="red"
               color="white"
               onClick={handleLogin}

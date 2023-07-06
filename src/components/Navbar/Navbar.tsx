@@ -7,11 +7,12 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
+  Link,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import NavLink from "./Navlink";
 
-const Links = ["Home", "Playlists", "Teachers"];
+const Links = ["Home", "Contents"];
 
 const Navbar: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -28,12 +29,14 @@ const Navbar: React.FC = () => {
           />
           <HStack spacing={8} alignItems={"center"}>
             <Box>
-              <img
-                src="./images/logo.png"
-                alt="logo"
-                width="50px"
-                height="50px"
-              />
+              <Link href="/">
+                <img
+                  src="/images/logo.png"
+                  alt="logo"
+                  width="50px"
+                  height="50px"
+                />
+              </Link>
             </Box>
             <HStack
               as={"nav"}

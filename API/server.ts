@@ -4,6 +4,8 @@ import {
   getContents,
   getContentsByTeacher,
   getContentsBySubject,
+  findTeacher,
+  findSubject,
 } from "./database";
 import { Request, Response } from "express";
 import cors from "cors";
@@ -55,6 +57,8 @@ app.get("/subjects", async (req: Request, res: Response) => {
 });
 app.get("/contents/:type", async (req: Request, res: Response) => {
   const type = req.params.type.toUpperCase();
+  let teacherId = 0;
+  let subjectId = 0;
   let desiredType: Types = Types.REEL;
   if (type == "REELS") desiredType = Types.REEL;
   if (type == "VIDEOS") desiredType = Types.VIDEO;
@@ -67,63 +71,43 @@ app.get("/contents/:type", async (req: Request, res: Response) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
 app.get(
   "/contents/:teacherOrSubject/:type",
   async (req: Request, res: Response) => {
-    const teacherOrSubject = req.params.teacherOrSubject.toUpperCase();
+    const teacherOrSubject = req.params.teacherOrSubject;
     let isTeacher = false;
-    let teacherOrSubjectId = 3;
-    if (teacherOrSubject == "MASHRAFI") {
-      teacherOrSubjectId = 1;
-      isTeacher = true;
-    }
-    if (teacherOrSubject == "MAISHA") {
-      teacherOrSubjectId = 2;
-      isTeacher = true;
-    }
-    if (teacherOrSubject == "AWESH") {
-      teacherOrSubjectId = 3;
-      isTeacher = true;
-    }
-    if (teacherOrSubject == "GOURAB") {
-      teacherOrSubjectId = 4;
-      isTeacher = true;
-    }
-    if (teacherOrSubject == "TANVIR") {
-      teacherOrSubjectId = 5;
-      isTeacher = true;
-    }
-    if (teacherOrSubject == "PHYSICS") teacherOrSubjectId = 1;
-    if (teacherOrSubject == "CHEMISTRY") teacherOrSubjectId = 2;
-    if (teacherOrSubject == "MATH") teacherOrSubjectId = 3;
+    let teacherOrSubjectId = 0;
     const type = req.params.type.toUpperCase();
     let desiredType: Types = Types.REEL;
     if (type == "REELS") desiredType = Types.REEL;
     if (type == "VIDEOS") desiredType = Types.VIDEO;
     if (type == "INFOGRAPHICS") desiredType = Types.INFOGRAPHICS;
-    if (isTeacher) {
+    if (!isTeacher) {
+      const teacherId = await findTeacher(teacherOrSubject);
       try {
-        const subjects = await getContentsByTeacher(
-          desiredType,
-          teacherOrSubjectId
-        );
-        res.send(subjects);
+        let subjects = 0;
+        subjects = await getContentsByTeacher(desiredType, teacherId);
+        if (subjects != 0) {
+          isTeacher = true;
+          res.send(subjects);
+        }
       } catch (error) {
         console.log(error);
         res.status(500).send("Internal Server Error");
       }
-    } else {
+    }
+    if (!isTeacher) {
+      const subjectId = await findSubject(teacherOrSubject);
       try {
-        const subjects = await getContentsBySubject(
-          desiredType,
-          teacherOrSubjectId
-        );
+        const subjects = await getContentsBySubject(desiredType, subjectId);
         res.send(subjects);
       } catch (error) {
         console.log(error);
         res.status(500).send("Internal Server Error");
       }
     }
+    //const subjectId = await findSubject(teacherOrSubject);
   }
 );
 

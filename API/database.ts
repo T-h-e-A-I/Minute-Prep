@@ -74,6 +74,58 @@ export async function getContentsBySubject(
     await prisma.$disconnect();
   }
 }
+export async function findSubject(givenName: string): Promise<any> {
+  try {
+    const contents = await prisma.subject.findMany({
+      where: {
+        name: givenName,
+      },
+    });
+    if (contents) return contents[0].id;
+    else return 0;
+  } catch (error) {
+    throw new Error("Cannot Find Subject by name");
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+export async function findTeacher(name: string): Promise<any> {
+  try {
+    const contents = await prisma.teacher.findFirst({
+      where: {
+        nickName: name,
+      },
+    });
+
+    if (contents) return contents.id;
+    else return 0;
+  } catch (error) {
+    throw new Error("Failed to fetch users from the database.");
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+// export async function findSubject(name: string) {
+//   try {
+//     const contents = await prisma.subject.findMany({
+//       where: {
+//         name: name,
+//       },
+//     });
+//     if (contents) {
+//       return contents[0].id;
+//     } else {
+//       return 0;
+//     }
+//     console.log(contents);
+//   } catch (error) {
+//     throw new Error("Failed to fetch users from the database.");
+//   } finally {
+//     await prisma.$disconnect();
+//   }
+// }
 
 //Enter Data
 // async function main() {
@@ -222,10 +274,10 @@ export async function getContentsBySubject(
 // }
 // main();
 
-// Check Data
+//Check Data
 // async function main() {
 //   try {
-//     const teachers = await prisma.content.findMany();
+//     const teachers = await prisma.subject.findMany();
 //     console.log(teachers);
 //   } catch (error) {
 //     console.log(error);

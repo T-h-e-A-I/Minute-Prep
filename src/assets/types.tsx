@@ -35,3 +35,10 @@ export type TeachType = {
   department: string;
   nickName: string;
 };
+
+export type CardProps = {
+  title: string;
+  url: string;
+  image: string;
+  tags: string[];
+};

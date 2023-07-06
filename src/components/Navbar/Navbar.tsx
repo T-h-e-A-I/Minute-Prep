@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
           <HStack spacing={8} alignItems={"center"}>
             <Box>
               <img
-                src="./images/logo.png"
+                src="/images/logo.png"
                 alt="logo"
                 width="50px"
                 height="50px"

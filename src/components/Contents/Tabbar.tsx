@@ -1,6 +1,16 @@
 import { Box, Flex, Link } from "@chakra-ui/react";
 
-const TabBar = () => {
+const TabBar = ({
+  teacherOrSubject,
+}: {
+  teacherOrSubject: string | undefined;
+}) => {
+  let link;
+  if (teacherOrSubject) {
+    link = "/contents/" + teacherOrSubject;
+  } else {
+    link = "/contents";
+  }
   return (
     <Box mx="200px">
       <Flex
@@ -18,7 +28,7 @@ const TabBar = () => {
           color="black"
           borderRadius="none"
         >
-          <Link href={"/contents/reels"}>REELS</Link>
+          <Link href={link + "/reels"}>Reels</Link>
         </Box>
         <Box
           as="button"
@@ -29,7 +39,7 @@ const TabBar = () => {
           color="black"
           borderRadius="none"
         >
-          <Link href={"/contents/videos"}>Videos</Link>
+          <Link href={link + "/videos"}>Videos</Link>
         </Box>
         <Box
           as="button"
@@ -39,7 +49,7 @@ const TabBar = () => {
           color="black"
           borderRadius="none"
         >
-          <Link href={"/contents/infographics"}>Infographics</Link>
+          <Link href={link + "/infographics"}>Infographics</Link>
         </Box>
       </Flex>
     </Box>

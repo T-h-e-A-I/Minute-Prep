@@ -42,7 +42,7 @@ const User: React.FC = () => {
               }
             />
           </MenuButton>
-          <MenuList>
+          <MenuList pb={0}>
             <MenuItem>
               <BellIcon padding="1px" />
               Notifications
@@ -51,9 +51,10 @@ const User: React.FC = () => {
               <SettingsIcon padding="1px" />
               Settings
             </MenuItem>
-            <MenuDivider />
+            <MenuDivider></MenuDivider>
             <Button
               width="100%"
+              mb={0}
               background="red"
               color="white"
               onClick={handleLogin}

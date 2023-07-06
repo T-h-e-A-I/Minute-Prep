@@ -5,15 +5,17 @@ import Tabbar from "../components/Contents/Tabbar.tsx";
 const Contents = () => {
   const params = useParams();
   const contentType = params.contentType;
+  const teacherOrSubject = params.teacherOrSubject;
+  console.log(contentType, teacherOrSubject);
   return (
     <>
       {contentType ? (
         <>
-          <Tabbar />
-          <ContentGrid type={contentType} />
+          <Tabbar teacherOrSubject={teacherOrSubject} />
+          <ContentGrid type={contentType} teacherOrSubject={teacherOrSubject} />
         </>
       ) : (
-        <Tabbar />
+        <Tabbar teacherOrSubject={teacherOrSubject} />
       )}
     </>
   );

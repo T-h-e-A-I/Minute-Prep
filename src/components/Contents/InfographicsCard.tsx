@@ -39,5 +39,3 @@ export const InfographicsCard = ({ title, url, image, tags }: CardProps) => {
     </Box>
   );
 };
-
-2611774472296827;

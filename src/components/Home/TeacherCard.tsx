@@ -1,4 +1,11 @@
-import { Heading, useColorModeValue, Text, Box } from "@chakra-ui/react";
+import {
+  Heading,
+  useColorModeValue,
+  Text,
+  Box,
+  Button,
+  Link,
+} from "@chakra-ui/react";
 
 type TeacherCardProps = {
   id: number;
@@ -18,9 +25,16 @@ export const TeacherCard = ({
   return (
     <article className="card">
       <figure>
-        <img src={image} alt={nickName} title={nickName} />
+        <Link as={Link} href={"./contents/" + nickName + "/reels"}>
+          <img src={image} alt={nickName} title={nickName} />
+        </Link>
       </figure>
       <Box textAlign={"center"} fontSize={"2xl"} fontFamily={"body"}>
+        <Link as={Link} href={"./contents/" + nickName + "/reels"}>
+          <Button className="btn-block" width="100%">
+            Watch Content
+          </Button>
+        </Link>
         <Heading
           color={useColorModeValue("gray.700", "white")}
           fontSize={"2xl"}

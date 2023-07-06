@@ -7,6 +7,7 @@ import {
   Center,
   useColorModeValue,
   HStack,
+  Link,
 } from "@chakra-ui/react";
 import { BsArrowUpRight } from "react-icons/bs";
 import { SubjectType } from "../../assets/types";
@@ -53,9 +54,13 @@ const Subject = ({ name, image, description }: SubjectType) => {
             w="full"
           >
             <Text fontSize={"md"} fontWeight={"semibold"}>
-              View more
+              <Link as={Link} href={"./contents/" + name + "/reels"}>
+                View more
+              </Link>
             </Text>
-            <BsArrowUpRight />
+            <Link as={Link} href={"./contents/" + name + "/reels"}>
+              <BsArrowUpRight />
+            </Link>
           </Flex>
         </HStack>
       </Box>

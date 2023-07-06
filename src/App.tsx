@@ -37,6 +37,10 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/contents" element={<Contents />} />
           <Route path="/contents/:contentType" element={<Contents />} />
+          <Route
+            path="contents/:teacherOrSubject/:contentType"
+            element={<Contents />}
+          />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>

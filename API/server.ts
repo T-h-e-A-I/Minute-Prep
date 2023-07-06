@@ -67,46 +67,65 @@ app.get("/contents/:type", async (req: Request, res: Response) => {
     res.status(500).send("Internal Server Error");
   }
 });
-app.get("/contents/:teachers/:type", async (req: Request, res: Response) => {
-  const teacher = req.params.teachers.toUpperCase();
-  let teacherId = 1;
-  if (teacher == "MASHRAFI") teacherId = 1;
-  if (teacher == "MAISHA") teacherId = 2;
-  if (teacher == "AWESH") teacherId = 3;
-  if (teacher == "GOURAB") teacherId = 4;
-  if (teacher == "TANVIR") teacherId = 5;
-  const type = req.params.type.toUpperCase();
-  let desiredType: Types = Types.REEL;
-  if (type == "REELS") desiredType = Types.REEL;
-  if (type == "VIDEOS") desiredType = Types.VIDEO;
-  if (type == "INFOGRAPHICS") desiredType = Types.INFOGRAPHICS;
-  try {
-    const subjects = await getContentsByTeacher(desiredType, teacherId);
-    res.send(subjects);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Internal Server Error");
+app.get(
+  "/contents/:teacherOrSubject/:type",
+  async (req: Request, res: Response) => {
+    const teacherOrSubject = req.params.teacherOrSubject.toUpperCase();
+    let isTeacher = false;
+    let teacherOrSubjectId = 3;
+    if (teacherOrSubject == "MASHRAFI") {
+      teacherOrSubjectId = 1;
+      isTeacher = true;
+    }
+    if (teacherOrSubject == "MAISHA") {
+      teacherOrSubjectId = 2;
+      isTeacher = true;
+    }
+    if (teacherOrSubject == "AWESH") {
+      teacherOrSubjectId = 3;
+      isTeacher = true;
+    }
+    if (teacherOrSubject == "GOURAB") {
+      teacherOrSubjectId = 4;
+      isTeacher = true;
+    }
+    if (teacherOrSubject == "TANVIR") {
+      teacherOrSubjectId = 5;
+      isTeacher = true;
+    }
+    if (teacherOrSubject == "PHYSICS") teacherOrSubjectId = 1;
+    if (teacherOrSubject == "CHEMISTRY") teacherOrSubjectId = 2;
+    if (teacherOrSubject == "MATH") teacherOrSubjectId = 3;
+    const type = req.params.type.toUpperCase();
+    let desiredType: Types = Types.REEL;
+    if (type == "REELS") desiredType = Types.REEL;
+    if (type == "VIDEOS") desiredType = Types.VIDEO;
+    if (type == "INFOGRAPHICS") desiredType = Types.INFOGRAPHICS;
+    if (isTeacher) {
+      try {
+        const subjects = await getContentsByTeacher(
+          desiredType,
+          teacherOrSubjectId
+        );
+        res.send(subjects);
+      } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+      }
+    } else {
+      try {
+        const subjects = await getContentsBySubject(
+          desiredType,
+          teacherOrSubjectId
+        );
+        res.send(subjects);
+      } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+      }
+    }
   }
-});
-app.get("/contents/:subject/:type", async (req: Request, res: Response) => {
-  const desiredSubject = req.params.subjec.toUpperCase();
-  let subjectId = 1;
-  if (desiredSubject == "PHYSICS") subjectId = 1;
-  if (desiredSubject == "CHEMISTRY") subjectId = 2;
-  if (desiredSubject == "MATH") subjectId = 3;
-  const type = req.params.type.toUpperCase();
-  let desiredType: Types = Types.REEL;
-  if (type == "REELS") desiredType = Types.REEL;
-  if (type == "VIDEOS") desiredType = Types.VIDEO;
-  if (type == "INFOGRAPHICS") desiredType = Types.INFOGRAPHICS;
-  try {
-    const subjects = await getContentsBySubject(desiredType, subjectId);
-    res.send(subjects);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Internal Server Error");
-  }
-});
+);
 
 httpServer.listen(8080);
 httpsServer.listen(8443);
